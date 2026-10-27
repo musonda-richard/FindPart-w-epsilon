@@ -1,0 +1,15 @@
+usa <- read.csv("01-USA/USA19_Musonda2026_vs_FindPart_relative_Re.csv")
+uk <- read.csv("02-UK/UK141_Kaku_vs_FindPart_relative_Re.csv")
+usa <- usa[usa$lineage!="KP.3.1.1",]
+uk <- uk[uk$lineage!="EG.5.1",]
+r_usa <- cor(usa$musonda2026_relative_Re,usa$findpart_relative_Re)
+r_uk <- cor(uk$kaku_relative_Re,uk$findpart_relative_Re)
+tiff("Fig.S4.tiff", width=10, height=4.5, units="in", res=600)
+par(mfrow=c(1,2),mar=c(5,5,3,1))
+plot(usa$musonda2026_relative_Re,usa$findpart_relative_Re,pch=1,xlab="Previous-study relative effective reproduction number",ylab=expression(paste("FindPart-",w,"-",epsilon," relative effective reproduction number")),main="(a) USA-19",xlim=c(0.5,1.3),ylim=c(0.5,1.3),xaxs="i",yaxs="i",asp=1)
+abline(0,1,lty=2)
+legend("topleft",legend=sprintf("Pearson r = %.3f",r_usa),bty="n")
+plot(uk$kaku_relative_Re,uk$findpart_relative_Re,pch=1,xlab="Previous-study relative effective reproduction number",ylab=expression(paste("FindPart-",w,"-",epsilon," relative effective reproduction number")),main="(b) UK-141",xlim=c(0.5,1.3),ylim=c(0.5,1.3),xaxs="i",yaxs="i",asp=1)
+abline(0,1,lty=2)
+legend("topleft",legend=sprintf("Pearson r = %.3f",r_uk),bty="n")
+dev.off()
